@@ -4,7 +4,10 @@
   "description": "Mava backend",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "nodemon src/index.ts",
+    "build": "rm -rf ./build && tsc",
+    "start": "npm run build && node build/index.js"
   },
   "repository": {
     "type": "git",
