@@ -1,11 +1,12 @@
+import "module-alias/register";
 import "reflect-metadata"; // We need this in order to use @Decorators
-
-import config from "./config";
 
 import express from "express";
 
-import Logger from "./loaders/logger";
-import expressApp from "./loaders/express";
+import config from "@config";
+import expressApp from "@loaders/express";
+import Logger from "@loaders/logger";
+import { sequelize } from "@services/db/sequelize";
 
 async function startServer() {
   const app = express();
@@ -18,6 +19,13 @@ async function startServer() {
    **/
   //   await require("./loaders").default({ expressApp: app });
   expressApp({ app });
+
+  sequelize
+    .sync()
+    .then(() => {
+      console.log("Tables have been created.");
+    })
+    .catch((error) => console.log(error));
 
   app
     .listen(config.port, () => {

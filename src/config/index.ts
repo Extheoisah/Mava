@@ -1,30 +1,32 @@
 import dotenv from "dotenv";
 
-// Set the NODE_ENV to 'development' by default
+interface Config {
+  port: number;
+  api: {
+    prefix: string;
+  };
+  logs: {
+    level: string;
+  };
+}
+
 process.env.NODE_ENV = process.env.NODE_ENV || "development";
 
-const envFound = dotenv.config();
+const envFound = dotenv.config({
+  path: `.env.${process.env.NODE_ENV}`,
+});
 if (envFound.error) {
-  // This error should crash whole process
-
   throw new Error("⚠️  Couldn't find .env file  ⚠️");
 }
 
-export default {
-  /**
-   * Your favorite port
-   */
-  port: parseInt(process.env.PORT || "5000", 10),
-  /**
-   * API configs
-   */
+const config: Config = {
+  port: parseInt(process.env.PORT || "8000", 10),
   api: {
     prefix: "/api",
   },
-  /**
-   * Used by winston logger
-   */
   logs: {
-    level: process.env.LOG_LEVEL || "silly",
+    level: process.env.LOG_LEVEL || "info",
   },
 };
+
+export default config;

@@ -1,6 +1,10 @@
 {
   "compilerOptions": {
     /* Visit https://aka.ms/tsconfig to read more about this file */
+    "baseUrl": "./src",                                     /* Base directory to resolve non-absolute module names. */
+    "paths": {
+      "@*": ["*"],
+    },
 
     /* Language and Environment */
     "target": "es2016",                                  /* Set the JavaScript language version for emitted JavaScript and include compatible library declarations. */
