@@ -1,7 +1,9 @@
 import express, { Request, Response, NextFunction } from "express";
 import cors from "cors";
-import routes from "../api";
-import config from "../config/index";
+import routes from "@api/index";
+import config from "@config/index";
+import { CustomError, NotFoundError } from "@api/middlewares/error-handlers";
+
 export default ({ app }: { app: express.Application }) => {
   /**
    * Health Check endpoints
@@ -17,15 +19,16 @@ export default ({ app }: { app: express.Application }) => {
   // Enable Cross Origin Resource Sharing to all origins by default
   app.use(cors());
 
-  // Transforms the raw string of req.body into json
   app.use(express.json());
   // Load API routes
   app.use(config.api.prefix, routes());
 
-  /// catch 404 and forward to error handler
+  /**
+   * Catch all non-matched routes and forward a NotFoundError.
+   */
   app.use((req, res, next) => {
-    const err: any = new Error("Not Found");
-    err.status = 404;
+    const err: CustomError = NotFoundError(req.originalUrl);
+    res.status(err.status).send(err);
     next(err);
   });
 

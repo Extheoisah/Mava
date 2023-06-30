@@ -34,9 +34,18 @@
     "cors": "^2.8.5",
     "dotenv": "^16.3.1",
     "express": "^4.18.2",
+    "module-alias": "^2.2.3",
+    "pg": "^8.11.1",
     "reflect-metadata": "^0.1.13",
     "sequelize": "^6.32.1",
     "sequelize-typescript": "^2.1.5",
     "winston": "^3.9.0"
+  },
+  "_moduleAliases": {
+    "@api": "./src/api",
+    "@loaders": "./src/loaders",
+    "@config": "./src/config",
+    "@models": "./src/models",
+    "@services": "./src/services"
   }
 }
