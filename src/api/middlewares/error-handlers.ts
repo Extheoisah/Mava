@@ -7,7 +7,7 @@ export interface CustomError {
 const createCustomError = (
   message: string,
   status: number,
-  name: string
+  name?: string
 ): CustomError => ({
   name: name || "CustomError",
   message,
