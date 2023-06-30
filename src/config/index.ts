@@ -1,4 +1,6 @@
 import dotenv from "dotenv";
+import { resolve } from "path";
+
 
 interface Config {
   port: number;
@@ -13,7 +15,7 @@ interface Config {
 process.env.NODE_ENV = process.env.NODE_ENV || "development";
 
 const envFound = dotenv.config({
-  path: `.env.${process.env.NODE_ENV}`,
+  path: resolve(__dirname, '../../.env'),
 });
 if (envFound.error) {
   throw new Error("⚠️  Couldn't find .env file  ⚠️");
