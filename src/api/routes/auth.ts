@@ -1,5 +1,5 @@
 import { NextFunction, Request, Response, response, Router } from "express";
-import LoggerInstance from "@loaders/logger";
+import LoggerInstance from "../../loaders/logger";
 const route = Router();
 
 export default (app: Router) => {
