@@ -8,7 +8,7 @@ import {
   UniqueConstraintError,
 } from "sequelize";
 
-import config from './config'
+import config from "./config";
 import expressApp from "@loaders/express";
 import Logger from "@loaders/logger";
 import { sequelize } from "@services/db/sequelize";
