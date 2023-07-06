@@ -35,6 +35,18 @@ module.exports = {
         type: Sequelize.STRING,
         allowNull: true,
       },
+      status: {
+        type: Sequelize.ENUM("PENDING", "APPROVED", "REJECTED"),
+        allowNull: false,
+        defaultValue: "PENDING",
+      },
+      accountId: {
+        type: Sequelize.UUID,
+        references: {
+          model: "account",
+          key: "id",
+        },
+      },
       createdAt: {
         allowNull: false,
         type: Sequelize.DATE,

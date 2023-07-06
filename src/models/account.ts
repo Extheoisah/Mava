@@ -2,7 +2,7 @@ import {
   BeforeCreate,
   Column,
   DataType,
-  ForeignKey,
+  HasMany,
   HasOne,
   Model,
   PrimaryKey,
@@ -12,7 +12,7 @@ import { v4 as uuidv4 } from "uuid";
 
 import { AccountStatus, AccountType } from "@helpers/types";
 
-import { KycInfo } from "./kycinfo";
+import { Checkpoint, Wallet, KycInfo } from "./";
 
 interface AccountAttributes {
   id: string;
@@ -21,10 +21,9 @@ interface AccountAttributes {
   email: string;
   password: string;
   name: string;
-  kycInfoId: KycInfo["id"];
 }
 
-@Table
+@Table({ tableName: "account", timestamps: true })
 export class Account extends Model<AccountAttributes> {
   @PrimaryKey
   @Column({
@@ -47,22 +46,37 @@ export class Account extends Model<AccountAttributes> {
   )
   status!: AccountStatus;
 
-  @Column
+  @Column(DataType.STRING)
   email!: string;
 
-  @Column
+  @Column(DataType.STRING)
   password!: string;
 
-  @Column
+  @Column(DataType.STRING)
   name!: string;
 
-  @ForeignKey(() => KycInfo)
-  @HasOne(() => KycInfo)
-  @Column
-  kycInfoId!: KycInfo["id"];
+  @HasOne(() => KycInfo, {
+    foreignKey: "accountId",
+    as: "KycInfoDetails",
+  })
+  kycInfoDetails!: KycInfo;
+
+  @HasMany(() => Wallet, {
+    foreignKey: "accountId",
+    as: "WalletDetails",
+  })
+  walletDetails!: Wallet[];
+
+  @HasMany(() => Checkpoint, {
+    foreignKey: "accountId",
+    as: "Checkpoints",
+  })
+  checkpoints!: Checkpoint[];
 
   @BeforeCreate
   static addUUID(instance: Account) {
     instance.id = uuidv4();
   }
 }
+
+export default Account;

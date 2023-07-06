@@ -1,8 +1,8 @@
 import express, { Request, Response, NextFunction } from "express";
 import cors from "cors";
-import routes from "../api/index";
-import config from "../config/index";
-import { CustomError, NotFoundError } from "../api/middlewares/error-handlers";
+import routes from "@api/index";
+import config from "@config/index";
+import { CustomError, NotFoundError } from "@api/middlewares/error-handlers";
 
 export default ({ app }: { app: express.Application }) => {
   /**

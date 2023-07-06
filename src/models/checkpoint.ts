@@ -18,7 +18,7 @@ interface CheckpointAttributes {
   accountId: Account["id"];
 }
 
-@Table
+@Table ({ tableName: "checkpoint", timestamps: true })
 export class Checkpoint extends Model<CheckpointAttributes> {
   @PrimaryKey
   @Default(DataType.UUIDV4)
@@ -37,3 +37,5 @@ export class Checkpoint extends Model<CheckpointAttributes> {
     instance.id = uuidv4();
   }
 }
+
+export default Checkpoint;

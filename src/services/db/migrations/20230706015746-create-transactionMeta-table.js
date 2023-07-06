@@ -20,6 +20,33 @@ module.exports = {
         type: Sequelize.TEXT,
         allowNull: true,
       },
+      transactionId: {
+        type: Sequelize.UUID,
+        references: {
+          model: "transaction",
+          key: "id",
+        },
+      },
+      invoice: {
+        type: Sequelize.TEXT,
+        allowNull: true,
+      },
+      address: {
+        type: Sequelize.STRING,
+        allowNull: true,
+      },
+      hash: {
+        type: Sequelize.TEXT,
+        allowNull: true,
+      },
+      createdAt: {
+        allowNull: false,
+        type: Sequelize.DATE,
+      },
+      updatedAt: {
+        allowNull: false,
+        type: Sequelize.DATE,
+      },
     });
   },
 
