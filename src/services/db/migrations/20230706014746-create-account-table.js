@@ -33,20 +33,18 @@ module.exports = {
         type: Sequelize.STRING,
         allowNull: false,
       },
-      kycInfoId: {
-        type: Sequelize.UUID,
-        unique: true,
-        allowNull: true,
-        references: {
-          model: "kycInfo",
-          key: "id",
-        },
+      createdAt: {
+        allowNull: false,
+        type: Sequelize.DATE,
+      },
+      updatedAt: {
+        allowNull: false,
+        type: Sequelize.DATE,
       },
     });
   },
 
   async down(queryInterface, Sequelize) {
     await queryInterface.dropTable("account");
-    await queryInterface.dropTable("kycInfo");
   },
 };

@@ -1,17 +1,23 @@
-start-dev:
-	npm run dev
+start:
+	docker-compose up
 
-start-deps:
+start-deps-local:
 	docker run --name mava-pg -e POSTGRES_PASSWORD=mysecretpassword -e POSTGRES_DB=mava-pg -d -p 5432:5432 postgres
 
-stop-deps:
+stop:
+	docker-compose down
+
+migrate:
+	docker-compose exec app npx sequelize-cli db:migrate
+
+stop-deps-local:
 	docker stop mava-pg
 	docker rm mava-pg
 
-migration:
-	npx sequelize-cli db:migrate
-
 undo-migration:
-	npx sequelize-cli db:migrate:undo
+	docker-compose exec app npx sequelize-cli db:migrate:undo
+
+undo-all-migrations:
+	docker-compose exec app npx sequelize-cli db:migrate:undo:all
 
 	

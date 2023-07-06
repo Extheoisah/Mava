@@ -1,0 +1,27 @@
+version: '3'
+services:
+  mava-pg:
+    image: postgres:14.1
+    restart: on-failure:10
+    environment:
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_USER: postgres
+      POSTGRES_DB: mava
+    ports:
+      - 5432:5432
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    environment:
+      DB_USERNAME: postgres
+      DB_PASSWORD: postgres
+      DB_NAME: mava
+      DB_HOST: mava-pg
+    command: ["npm", "run", "dev"]
+    volumes:
+      - .:/app
+    depends_on:
+      - mava-pg
+    ports:
+      - 8000:8000

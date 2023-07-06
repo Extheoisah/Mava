@@ -12,7 +12,7 @@ import { v4 as uuidv4 } from "uuid";
 
 import { WalletType } from "@helpers/types";
 
-import { Account } from "./account";
+import Account from "./account";
 
 interface WalletAttributes {
   id: string;
@@ -21,7 +21,7 @@ interface WalletAttributes {
   accountId: Account["id"];
 }
 
-@Table
+@Table({ tableName: "wallet", timestamps: true })
 export class Wallet extends Model<WalletAttributes> {
   @PrimaryKey
   @Column({
@@ -39,12 +39,16 @@ export class Wallet extends Model<WalletAttributes> {
   balance!: number;
 
   @ForeignKey(() => Account)
-  @BelongsTo(() => Account)
-  @Column
+  @Column(DataType.UUID)
   accountId!: Account["id"];
+
+  @BelongsTo(() => Account)
+  account!: Account;
 
   @BeforeCreate
   static addUUID(instance: Wallet) {
     instance.id = uuidv4();
   }
 }
+
+export default Wallet;

@@ -9,9 +9,9 @@ import {
 } from "sequelize";
 
 import config from './config'
-import expressApp from "./loaders/express";
-import Logger from "./loaders/logger";
-import { sequelize } from "./services/db/sequelize";
+import expressApp from "@loaders/express";
+import Logger from "@loaders/logger";
+import { sequelize } from "@services/db/sequelize";
 
 async function startServer() {
   const app = express();

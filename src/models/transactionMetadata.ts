@@ -1,9 +1,10 @@
 import {
   BeforeCreate,
+  BelongsTo,
   Column,
   DataType,
   Default,
-  HasOne,
+  ForeignKey,
   Model,
   PrimaryKey,
   Table,
@@ -12,7 +13,7 @@ import { v4 as uuidv4 } from "uuid";
 
 import { TransactionMetaType } from "@helpers/types";
 
-import { Transaction } from "./transaction";
+import Transaction from "./transaction";
 
 interface TransactionMetadataAttributes {
   id: string;
@@ -21,9 +22,10 @@ interface TransactionMetadataAttributes {
   narration: string;
   invoice?: string;
   address?: string;
+  transactionId: Transaction["id"];
 }
 
-@Table
+@Table({ tableName: "transactionMetadata", timestamps: true })
 export class TransactionMetadata extends Model<TransactionMetadataAttributes> {
   @PrimaryKey
   @Default(DataType.UUIDV4)
@@ -36,16 +38,20 @@ export class TransactionMetadata extends Model<TransactionMetadataAttributes> {
   @Column(DataType.TEXT)
   narration!: string;
 
-  @Column
+  @Column(DataType.TEXT)
   hash?: string;
 
-  @Column
+  @Column(DataType.TEXT)
   invoice?: string;
 
-  @Column
+  @Column(DataType.STRING)
   address?: string;
 
-  @HasOne(() => Transaction)
+  @ForeignKey(() => Transaction)
+  @Column(DataType.UUID)
+  transactionId!: Transaction["id"];
+
+  @BelongsTo(() => Transaction)
   transaction!: Transaction;
 
   @BeforeCreate
@@ -53,3 +59,5 @@ export class TransactionMetadata extends Model<TransactionMetadataAttributes> {
     instance.id = uuidv4();
   }
 }
+
+export default TransactionMetadata;

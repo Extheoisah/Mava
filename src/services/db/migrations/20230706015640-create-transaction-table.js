@@ -10,13 +10,6 @@ module.exports = {
         type: Sequelize.UUID,
         defaultValue: Sequelize.UUIDV4,
       },
-      transactionMetadataId: {
-        type: Sequelize.UUID,
-        references: {
-          model: "transactionMetadata",
-          key: "id",
-        },
-      },
       walletId: {
         type: Sequelize.UUID,
         references: {
@@ -58,6 +51,14 @@ module.exports = {
       status: {
         type: Sequelize.ENUM("SUCCESS", "FAILURE", "PENDING"),
         allowNull: false,
+      },
+      createdAt: {
+        allowNull: false,
+        type: Sequelize.DATE,
+      },
+      updatedAt: {
+        allowNull: false,
+        type: Sequelize.DATE,
       },
     });
   },

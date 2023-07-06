@@ -5,6 +5,7 @@ import {
   DataType,
   Default,
   ForeignKey,
+  HasOne,
   Model,
   PrimaryKey,
   Table,
@@ -13,13 +14,10 @@ import { v4 as uuidv4 } from "uuid";
 
 import { TargetType, TransactionStatus, TransactionType } from "@helpers/types";
 
-import { Checkpoint } from "./checkpoint";
-import { TransactionMetadata } from "./transactionMetadata";
-import { Wallet } from "./wallet";
+import { Checkpoint, Wallet, TransactionMetadata } from "./";
 
 interface TransactionAttributes {
   id: string;
-  transactionMetadataId: TransactionMetadata["id"];
   walletId: Wallet["id"];
   checkpointId: Checkpoint["id"];
   amount: number;
@@ -30,7 +28,7 @@ interface TransactionAttributes {
   target: TargetType;
 }
 
-@Table
+@Table({ tableName: "transaction", timestamps: true })
 export class Transaction extends Model<TransactionAttributes> {
   @PrimaryKey
   @Default(DataType.UUIDV4)
@@ -41,10 +39,6 @@ export class Transaction extends Model<TransactionAttributes> {
     defaultValue: DataType.UUIDV4,
   })
   id!: string;
-
-  @ForeignKey(() => TransactionMetadata)
-  @Column(DataType.UUID)
-  transactionMetadataId!: TransactionMetadata["id"];
 
   @ForeignKey(() => Wallet)
   @Column(DataType.UUID)
@@ -72,7 +66,7 @@ export class Transaction extends Model<TransactionAttributes> {
   @Column(DataType.ENUM({ values: Object.values(TargetType) }))
   target!: TargetType;
 
-  @BelongsTo(() => TransactionMetadata)
+  @HasOne(() => TransactionMetadata)
   transactionMetadata!: TransactionMetadata;
 
   @BelongsTo(() => Wallet)
@@ -86,3 +80,5 @@ export class Transaction extends Model<TransactionAttributes> {
     instance.id = uuidv4();
   }
 }
+
+export default Transaction;
