@@ -92,6 +92,27 @@ module.exports = {
       ],
       {}
     );
+
+    //Creating kycinfo
+    await queryInterface.bulkInsert(
+      "kycInfo",
+      [
+        {
+          id: v4(),
+          address: "Benin City, Close to Redeem Church",
+          phone: "2348123234345",
+          businessName: "Sharp Drink Store",
+          bankName: "Trinity Bank",
+          bankAccountNumber: "1234567890",
+          bankAccountName: "Sharp Drink Store",
+          status: "APPROVED",
+          accountId,
+          createdAt: "2023-07-07",
+          updatedAt: "2023-07-09",
+        },
+      ],
+      {}
+    );
   },
 
   async down(queryInterface, Sequelize) {
@@ -102,6 +123,7 @@ module.exports = {
      * await queryInterface.bulkDelete('People', null, {});
      */
     await queryInterface.bulkDelete("wallet", null, {});
+    await queryInterface.bulkDelete("kycInfo", null, {});
     await queryInterface.bulkDelete("checkpoint", null, {});
     await queryInterface.bulkDelete("account", null, {});
   },
