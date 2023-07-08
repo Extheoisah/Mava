@@ -20,4 +20,13 @@ undo-migration:
 undo-all-migrations:
 	docker-compose exec app npx sequelize-cli db:migrate:undo:all
 
+seed:
+	docker-compose exec app npx sequelize-cli db:seed:all
+
+undo-seed:
+	docker-compose exec app npx sequelize-cli db:seed:undo
+
+undo-all-seed:
+	docker-compose exec app npx sequelize-cli db:seed:undo:all
+
 	
