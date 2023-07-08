@@ -113,6 +113,48 @@ module.exports = {
       ],
       {}
     );
+
+    const wallets = await queryInterface.sequelize.query(
+      `SELECT id from WALLET;`
+    );
+
+    const checkpoints = await queryInterface.sequelize.query(
+      `SELECT id from CHECKPOINT;`
+    );
+
+    //Creating kycinfo
+    await queryInterface.bulkInsert(
+      "transaction",
+      [
+        {
+          id: v4(),
+          walletId: wallets[0][0].id,
+          checkpointId: checkpoints[0][0].id,
+          amount: 1000,
+          fees: 10,
+          currency: "USD",
+          type: "DEPOSIT",
+          status: "SUCCESS",
+          target: "EXTERNAL_WALLET",
+          createdAt: "2023-07-07",
+          updatedAt: "2023-07-09",
+        },
+        {
+          id: v4(),
+          walletId: wallets[0][1].id,
+          checkpointId: checkpoints[0][1].id,
+          amount: 10000000,
+          fees: 10,
+          currency: "BTC",
+          type: "DEPOSIT",
+          status: "SUCCESS",
+          target: "EXTERNAL_WALLET",
+          createdAt: "2023-07-07",
+          updatedAt: "2023-07-09",
+        },
+      ],
+      {}
+    );
   },
 
   async down(queryInterface, Sequelize) {
@@ -122,6 +164,7 @@ module.exports = {
      * Example:
      * await queryInterface.bulkDelete('People', null, {});
      */
+    await queryInterface.bulkDelete("transaction", null, {});
     await queryInterface.bulkDelete("wallet", null, {});
     await queryInterface.bulkDelete("kycInfo", null, {});
     await queryInterface.bulkDelete("checkpoint", null, {});
