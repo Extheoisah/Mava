@@ -4,12 +4,6 @@ const { v4 } = require("uuid");
 
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
-  // id: string;
-  // type: AccountType;
-  // status: AccountStatus;
-  // email: string;
-  // password: string;
-  // name: string;
   async up(queryInterface, Sequelize) {
     /**
      * Add seed commands here.
@@ -21,6 +15,7 @@ module.exports = {
      * }], {});
      */
 
+    //Creating Account
     await queryInterface.bulkInsert(
       "account",
       [
@@ -37,6 +32,34 @@ module.exports = {
       ],
       {}
     );
+    const accounts = await queryInterface.sequelize.query(
+      `SELECT id from ACCOUNT;`
+    );
+    const accountId = accounts[0][0].id;
+
+    //Creating Wallet
+    await queryInterface.bulkInsert(
+      "wallet",
+      [
+        {
+          id: v4(),
+          type: "BTC",
+          balance: 100000000000,
+          accountId,
+          createdAt: "2023-07-07",
+          updatedAt: "2023-07-09",
+        },
+        {
+          id: v4(),
+          type: "USD",
+          balance: 100000000000,
+          accountId,
+          createdAt: "2023-07-07",
+          updatedAt: "2023-07-09",
+        },
+      ],
+      {}
+    );
   },
 
   async down(queryInterface, Sequelize) {
@@ -47,5 +70,6 @@ module.exports = {
      * await queryInterface.bulkDelete('People', null, {});
      */
     await queryInterface.bulkDelete("account", null, {});
+    await queryInterface.bulkDelete("wallet", null, {});
   },
 };
