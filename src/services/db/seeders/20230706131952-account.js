@@ -60,6 +60,38 @@ module.exports = {
       ],
       {}
     );
+
+    //Creating Checkpoint
+    await queryInterface.bulkInsert(
+      "checkpoint",
+      [
+        {
+          id: v4(),
+          accountId,
+          createdAt: "2023-07-07",
+          updatedAt: "2023-07-09",
+        },
+        {
+          id: v4(),
+          accountId,
+          createdAt: "2023-07-07",
+          updatedAt: "2023-07-09",
+        },
+        {
+          id: v4(),
+          accountId,
+          createdAt: "2023-07-07",
+          updatedAt: "2023-07-09",
+        },
+        {
+          id: v4(),
+          accountId,
+          createdAt: "2023-07-07",
+          updatedAt: "2023-07-09",
+        },
+      ],
+      {}
+    );
   },
 
   async down(queryInterface, Sequelize) {
@@ -69,7 +101,8 @@ module.exports = {
      * Example:
      * await queryInterface.bulkDelete('People', null, {});
      */
-    await queryInterface.bulkDelete("account", null, {});
     await queryInterface.bulkDelete("wallet", null, {});
+    await queryInterface.bulkDelete("checkpoint", null, {});
+    await queryInterface.bulkDelete("account", null, {});
   },
 };
