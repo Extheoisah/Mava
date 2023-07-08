@@ -29,13 +29,36 @@ module.exports = {
           createdAt: "2023-07-07",
           updatedAt: "2023-07-09",
         },
+        {
+          id: v4(),
+          name: "Mr. Admin",
+          type: "ADMIN",
+          email: "admin@gmail.com",
+          password: bcrypt.hashSync("admin_pass", bcrypt.genSaltSync(10)),
+          status: "ACTIVE",
+          createdAt: "2023-07-07",
+          updatedAt: "2023-07-09",
+        },
       ],
       {}
     );
     const accounts = await queryInterface.sequelize.query(
-      `SELECT id from ACCOUNT;`
+      `SELECT id, type from ACCOUNT;`
     );
-    const accountId = accounts[0][0].id;
+
+    function selectId(records, key, value) {
+      let id = "";
+      for (let i = 0; i < records[0].length; i++) {
+        const record = records[0][i];
+        if (record[key] === value) {
+          id = record.id;
+          break;
+        }
+      }
+      return id;
+    }
+
+    const accountId = selectId(accounts, "type", "CUSTOMER");
 
     //Creating Wallet
     await queryInterface.bulkInsert(
@@ -115,7 +138,7 @@ module.exports = {
     );
 
     const wallets = await queryInterface.sequelize.query(
-      `SELECT id from WALLET;`
+      `SELECT id, type from WALLET;`
     );
 
     const checkpoints = await queryInterface.sequelize.query(
@@ -128,7 +151,7 @@ module.exports = {
       [
         {
           id: v4(),
-          walletId: wallets[0][0].id,
+          walletId: selectId(wallets, "type", "USD"),
           checkpointId: checkpoints[0][0].id,
           amount: 1000,
           fees: 10,
@@ -141,7 +164,7 @@ module.exports = {
         },
         {
           id: v4(),
-          walletId: wallets[0][1].id,
+          walletId: selectId(wallets, "type", "BTC"),
           checkpointId: checkpoints[0][1].id,
           amount: 10000000,
           fees: 10,
@@ -165,7 +188,7 @@ module.exports = {
     // transactionId: Transaction["id"];
 
     const transactions = await queryInterface.sequelize.query(
-      `SELECT id from TRANSACTION;`
+      `SELECT id, currency from TRANSACTION;`
     );
 
     //Creating Transaction Meta data
@@ -177,7 +200,7 @@ module.exports = {
           type: "FIAT",
           hash: v4(),
           narration: "Payment for Farm Fresh",
-          transactionId: transactions[0][0].id,
+          transactionId: selectId(transactions, "currency", "USD"),
           createdAt: "2023-07-07",
           updatedAt: "2023-07-09",
         },
@@ -186,7 +209,7 @@ module.exports = {
           type: "ONCHAIN",
           hash: v4(),
           narration: "Payment for Farm Fresh",
-          transactionId: transactions[0][1].id,
+          transactionId: selectId(transactions, "currency", "BTC"),
           address: v4(),
           createdAt: "2023-07-07",
           updatedAt: "2023-07-09",
