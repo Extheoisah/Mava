@@ -155,6 +155,45 @@ module.exports = {
       ],
       {}
     );
+
+    // id: string;
+    // type: TransactionMetaType;
+    // hash?: string;
+    // narration: string;
+    // invoice?: string;
+    // address?: string;
+    // transactionId: Transaction["id"];
+
+    const transactions = await queryInterface.sequelize.query(
+      `SELECT id from TRANSACTION;`
+    );
+
+    //Creating Transaction Meta data
+    await queryInterface.bulkInsert(
+      "transactionMetadata",
+      [
+        {
+          id: v4(),
+          type: "FIAT",
+          hash: v4(),
+          narration: "Payment for Farm Fresh",
+          transactionId: transactions[0][0].id,
+          createdAt: "2023-07-07",
+          updatedAt: "2023-07-09",
+        },
+        {
+          id: v4(),
+          type: "ONCHAIN",
+          hash: v4(),
+          narration: "Payment for Farm Fresh",
+          transactionId: transactions[0][1].id,
+          address: v4(),
+          createdAt: "2023-07-07",
+          updatedAt: "2023-07-09",
+        },
+      ],
+      {}
+    );
   },
 
   async down(queryInterface, Sequelize) {
@@ -164,6 +203,7 @@ module.exports = {
      * Example:
      * await queryInterface.bulkDelete('People', null, {});
      */
+    await queryInterface.bulkDelete("transactionMetadata", null, {});
     await queryInterface.bulkDelete("transaction", null, {});
     await queryInterface.bulkDelete("wallet", null, {});
     await queryInterface.bulkDelete("kycInfo", null, {});
