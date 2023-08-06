@@ -42,3 +42,9 @@ export enum TransactionMetaType {
   ONCHAIN = "ONCHAIN",
   FIAT = "FIAT",
 }
+
+export interface JwtPayload {
+  sub: string;
+  name: string;
+  admin: boolean;
+}

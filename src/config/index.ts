@@ -1,7 +1,6 @@
 import dotenv from "dotenv";
 import { resolve } from "path";
 
-
 interface Config {
   port: number;
   api: {
@@ -10,12 +9,13 @@ interface Config {
   logs: {
     level: string;
   };
+  secret: string;
 }
 
 process.env.NODE_ENV = process.env.NODE_ENV || "development";
 
 const envFound = dotenv.config({
-  path: resolve(__dirname, '../../.env'),
+  path: resolve(__dirname, "../../.env"),
 });
 if (envFound.error) {
   throw new Error("⚠️  Couldn't find .env file  ⚠️");
@@ -26,6 +26,7 @@ const config: Config = {
   api: {
     prefix: "/api",
   },
+  secret: process.env.JWT_SECRET || "",
   logs: {
     level: process.env.LOG_LEVEL || "info",
   },
