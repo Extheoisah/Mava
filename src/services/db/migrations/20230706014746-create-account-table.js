@@ -1,4 +1,5 @@
-"use strict";
+/* eslint-disable no-undef */
+"use strict"
 
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
@@ -41,10 +42,10 @@ module.exports = {
         allowNull: false,
         type: Sequelize.DATE,
       },
-    });
+    })
   },
 
-  async down(queryInterface, Sequelize) {
-    await queryInterface.dropTable("account");
+  async down(queryInterface) {
+    await queryInterface.dropTable("account")
   },
-};
+}

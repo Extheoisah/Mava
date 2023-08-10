@@ -7,20 +7,20 @@ import {
   Model,
   PrimaryKey,
   Table,
-} from "sequelize-typescript";
-import { v4 as uuidv4 } from "uuid";
+} from "sequelize-typescript"
+import { v4 as uuidv4 } from "uuid"
 
-import { AccountStatus, AccountType } from "@helpers/types";
+import { AccountStatus, AccountType } from "@helpers/types"
 
-import { Checkpoint, Wallet, KycInfo } from "./";
+import { Checkpoint, Wallet, KycInfo } from "./"
 
 interface AccountAttributes {
-  id: string;
-  type: AccountType;
-  status: AccountStatus;
-  email: string;
-  password: string;
-  name: string;
+  id: string
+  type: AccountType
+  status: AccountStatus
+  email: string
+  password: string
+  name: string
 }
 
 @Table({ tableName: "account", timestamps: true })
@@ -32,51 +32,47 @@ export class Account extends Model<AccountAttributes> {
     unique: true,
     primaryKey: true,
   })
-  id!: string;
+  id!: string
 
   @Column(DataType.ENUM({ values: Object.values(AccountType) }))
-  type!: AccountType;
+  type!: AccountType
 
   @Column(
-    DataType.ENUM(
-      AccountStatus.ACTIVE,
-      AccountStatus.INACTIVE,
-      AccountStatus.LOCKED
-    )
+    DataType.ENUM(AccountStatus.ACTIVE, AccountStatus.INACTIVE, AccountStatus.LOCKED),
   )
-  status!: AccountStatus;
+  status!: AccountStatus
 
   @Column(DataType.STRING)
-  email!: string;
+  email!: string
 
   @Column(DataType.STRING)
-  password!: string;
+  password!: string
 
   @Column(DataType.STRING)
-  name!: string;
+  name!: string
 
   @HasOne(() => KycInfo, {
     foreignKey: "accountId",
     as: "KycInfoDetails",
   })
-  kycInfoDetails!: KycInfo;
+  kycInfoDetails!: KycInfo
 
   @HasMany(() => Wallet, {
     foreignKey: "accountId",
     as: "WalletDetails",
   })
-  walletDetails!: Wallet[];
+  walletDetails!: Wallet[]
 
   @HasMany(() => Checkpoint, {
     foreignKey: "accountId",
     as: "Checkpoints",
   })
-  checkpoints!: Checkpoint[];
+  checkpoints!: Checkpoint[]
 
   @BeforeCreate
   static addUUID(instance: Account) {
-    instance.id = uuidv4();
+    instance.id = uuidv4()
   }
 }
 
-export default Account;
+export default Account

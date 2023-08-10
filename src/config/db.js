@@ -1,4 +1,6 @@
-require("dotenv").config();
+/* eslint-disable no-undef */
+/* eslint-disable @typescript-eslint/no-var-requires */
+require("dotenv").config()
 
 module.exports = {
   development: {
@@ -9,5 +11,4 @@ module.exports = {
     dialect: "postgres",
     port: 5432,
   },
-};
-
+}
