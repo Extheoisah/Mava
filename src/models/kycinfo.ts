@@ -1,4 +1,4 @@
-import { KycStatus } from "@helpers/types";
+import { KycStatus } from "@helpers/types"
 import {
   BeforeCreate,
   BelongsTo,
@@ -8,19 +8,19 @@ import {
   Model,
   PrimaryKey,
   Table,
-} from "sequelize-typescript";
-import { v4 as uuidv4 } from "uuid";
-import Account from "./account";
+} from "sequelize-typescript"
+import { v4 as uuidv4 } from "uuid"
+import Account from "./account"
 
 interface KycInfoAttributes {
-  address: string;
-  phone: string;
-  businessName: string;
-  bankName?: string;
-  bankAccountNumber?: string;
-  bankAccountName?: string;
-  status: string;
-  accountId: Account["id"];
+  address: string
+  phone: string
+  businessName: string
+  bankName?: string
+  bankAccountNumber?: string
+  bankAccountName?: string
+  status: string
+  accountId: Account["id"]
 }
 
 @Table({ tableName: "kycInfo", timestamps: true })
@@ -31,43 +31,43 @@ export class KycInfo extends Model<KycInfoAttributes> {
     defaultValue: DataType.UUIDV4,
     primaryKey: true,
   })
-  id!: string;
+  id!: string
 
   @Column(DataType.STRING)
-  address!: string;
+  address!: string
 
   @Column(DataType.STRING)
-  phone!: string;
+  phone!: string
 
   @Column(DataType.STRING)
-  businessName!: string;
+  businessName!: string
 
   @Column(DataType.STRING)
-  bankName?: string;
+  bankName?: string
 
   @Column(DataType.STRING)
-  bankAccountNumber?: string;
+  bankAccountNumber?: string
 
   @Column(DataType.STRING)
-  bankAccountName?: string;
+  bankAccountName?: string
 
   @Column({
     type: DataType.ENUM({ values: Object.values(KycStatus) }),
     defaultValue: KycStatus.PENDING,
   })
-  status!: KycStatus;
+  status!: KycStatus
 
   @ForeignKey(() => Account)
   @Column(DataType.UUID)
-  accountId!: Account["id"];
+  accountId!: Account["id"]
 
   @BelongsTo(() => Account)
-  account!: Account;
+  account!: Account
 
   @BeforeCreate
   static addUUID(instance: KycInfo) {
-    instance.id = uuidv4();
+    instance.id = uuidv4()
   }
 }
 
-export default KycInfo;
+export default KycInfo

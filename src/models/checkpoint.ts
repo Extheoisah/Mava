@@ -8,34 +8,34 @@ import {
   Model,
   PrimaryKey,
   Table,
-} from "sequelize-typescript";
-import { v4 as uuidv4 } from "uuid";
+} from "sequelize-typescript"
+import { v4 as uuidv4 } from "uuid"
 
-import { Account } from "./account";
+import { Account } from "./account"
 
 interface CheckpointAttributes {
-  id: string;
-  accountId: Account["id"];
+  id: string
+  accountId: Account["id"]
 }
 
-@Table ({ tableName: "checkpoint", timestamps: true })
+@Table({ tableName: "checkpoint", timestamps: true })
 export class Checkpoint extends Model<CheckpointAttributes> {
   @PrimaryKey
   @Default(DataType.UUIDV4)
   @Column(DataType.UUID)
-  id!: string;
+  id!: string
 
   @ForeignKey(() => Account)
   @Column(DataType.UUID)
-  accountId!: Account["id"];
+  accountId!: Account["id"]
 
   @BelongsTo(() => Account)
-  account!: Account;
+  account!: Account
 
   @BeforeCreate
   static addUUID(instance: Checkpoint) {
-    instance.id = uuidv4();
+    instance.id = uuidv4()
   }
 }
 
-export default Checkpoint;
+export default Checkpoint

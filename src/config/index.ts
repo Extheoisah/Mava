@@ -1,24 +1,23 @@
-import dotenv from "dotenv";
-import { resolve } from "path";
-
+import dotenv from "dotenv"
+import { resolve } from "path"
 
 interface Config {
-  port: number;
+  port: number
   api: {
-    prefix: string;
-  };
+    prefix: string
+  }
   logs: {
-    level: string;
-  };
+    level: string
+  }
 }
 
-process.env.NODE_ENV = process.env.NODE_ENV || "development";
+process.env.NODE_ENV = process.env.NODE_ENV || "development"
 
 const envFound = dotenv.config({
-  path: resolve(__dirname, '../../.env'),
-});
+  path: resolve(__dirname, "../../.env"),
+})
 if (envFound.error) {
-  throw new Error("⚠️  Couldn't find .env file  ⚠️");
+  throw new Error("⚠️  Couldn't find .env file  ⚠️")
 }
 
 const config: Config = {
@@ -29,6 +28,6 @@ const config: Config = {
   logs: {
     level: process.env.LOG_LEVEL || "info",
   },
-};
+}
 
-export default config;
+export default config

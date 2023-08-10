@@ -34,4 +34,5 @@ undo-seed:
 undo-all-seed:
 	docker-compose exec app npx sequelize-cli db:seed:undo:all
 
-	
+check-code:
+	npm run tsc-check && npm run eslint-check && npm run prettier-check
