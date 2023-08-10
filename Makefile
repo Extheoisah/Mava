@@ -1,6 +1,11 @@
 start:
 	docker-compose up
 
+start-deps:
+	docker-compose up -d
+	make migrate
+	make seed
+
 start-deps-local:
 	docker run --name mava-pg -e POSTGRES_PASSWORD=mysecretpassword -e POSTGRES_DB=mava-pg -d -p 5432:5432 postgres
 
