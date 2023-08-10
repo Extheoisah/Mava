@@ -43,7 +43,7 @@ module.exports = {
       target: {
         type: Sequelize.ENUM(
           "INTERNAL_WALLET",
-          "EXTERNAL_WALET",
+          "EXTERNAL_WALLET",
           "EXTERNAL_BANK"
         ),
         allowNull: false,

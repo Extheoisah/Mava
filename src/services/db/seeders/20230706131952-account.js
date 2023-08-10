@@ -179,14 +179,6 @@ module.exports = {
       {}
     );
 
-    // id: string;
-    // type: TransactionMetaType;
-    // hash?: string;
-    // narration: string;
-    // invoice?: string;
-    // address?: string;
-    // transactionId: Transaction["id"];
-
     const transactions = await queryInterface.sequelize.query(
       `SELECT id, currency from TRANSACTION;`
     );

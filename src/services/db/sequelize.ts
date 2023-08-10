@@ -10,4 +10,7 @@ export const sequelize = new Sequelize({
   host: process.env.DB_HOST || "mava-pg",
   port: 5432,
   models: [__dirname + "/../../models/!(index).ts"],
+  pool: {
+    max: 100,
+  },
 });
