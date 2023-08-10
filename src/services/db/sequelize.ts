@@ -13,4 +13,4 @@ export const sequelize = new Sequelize({
   pool: {
     max: 100,
   },
-});
+})
