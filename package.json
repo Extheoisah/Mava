@@ -56,7 +56,7 @@
     "sequelize": "^6.32.1",
     "sequelize-typescript": "^2.1.5",
     "uuid": "^9.0.0",
-    "winston": "^3.9.0"
+    "winston": "^3.10.0"
   },
   "_moduleAliases": {
     "@api": "./src/api",
