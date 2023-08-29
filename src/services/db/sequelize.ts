@@ -7,10 +7,10 @@ export const sequelize = new Sequelize({
   dialect: "postgres",
   username: process.env.DB_USERNAME || "postgres",
   password: process.env.DB_PASSWORD || "postgres",
-  host: process.env.DB_HOST || "mava-pg",
+  host: process.env.DB_HOST || "localhost",
   port: 5432,
   models: [__dirname + "/../../models/!(index).ts"],
   pool: {
-    max: 100,
+    max: 10,
   },
 })

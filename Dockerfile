@@ -12,4 +12,4 @@ WORKDIR /app
 COPY --from=BUILD_IMAGE /app/build /app/build
 COPY --from=BUILD_IMAGE /app/node_modules /app/node_modules
 EXPOSE 8000
-CMD [ "node", "index.ts" ]
+CMD [ "node", "src/server/index.ts" ]

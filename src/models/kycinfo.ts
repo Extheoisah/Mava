@@ -1,4 +1,4 @@
-import { KycStatus } from "@helpers/types"
+import { KycStatus } from "@domain/shared/primitives"
 import {
   BeforeCreate,
   BelongsTo,

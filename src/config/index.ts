@@ -1,5 +1,6 @@
 import dotenv from "dotenv"
 import { resolve } from "path"
+import { MAVA_API_PORT } from "./process"
 
 interface Config {
   port: number
@@ -21,7 +22,7 @@ if (envFound.error) {
 }
 
 const config: Config = {
-  port: parseInt(process.env.PORT || "8000", 10),
+  port: MAVA_API_PORT,
   api: {
     prefix: "/api",
   },
