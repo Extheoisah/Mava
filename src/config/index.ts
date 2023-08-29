@@ -11,14 +11,15 @@ interface Config {
     level: string
   }
 }
+const isDevelopment = process.env.NODE_ENV === "development"
 
-process.env.NODE_ENV = process.env.NODE_ENV || "development"
-
-const envFound = dotenv.config({
-  path: resolve(__dirname, "../../.env"),
-})
-if (envFound.error) {
-  throw new Error("⚠️  Couldn't find .env file  ⚠️")
+if (isDevelopment) {
+  const envFound = dotenv.config({
+    path: resolve(__dirname, "../../.env"),
+  })
+  if (envFound.error) {
+    throw new Error("⚠️  Couldn't find .env file in development mode ⚠️")
+  }
 }
 
 const config: Config = {
