@@ -36,3 +36,6 @@ undo-all-seed:
 
 check-code:
 	npm run tsc-check && npm run eslint-check && npm run prettier-check
+
+test-integration:
+	npm run test:integration

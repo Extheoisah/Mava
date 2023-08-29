@@ -12,7 +12,7 @@ import {
 } from "sequelize-typescript"
 import { v4 as uuidv4 } from "uuid"
 
-import { TargetType, TransactionStatus, TransactionType } from "@helpers/types"
+import { TargetType, TransactionStatus, TransactionType } from "@domain/shared/primitives"
 
 import { Checkpoint, Wallet, TransactionMetadata } from "./"
 

@@ -11,7 +11,7 @@ import {
 } from "sequelize-typescript"
 import { v4 as uuidv4 } from "uuid"
 
-import { TransactionMetaType } from "@helpers/types"
+import { TransactionMetaType } from "@domain/shared/primitives"
 
 import Transaction from "./transaction"
 

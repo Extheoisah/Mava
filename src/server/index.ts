@@ -1,4 +1,3 @@
-import "module-alias/register"
 import "reflect-metadata" // We need this in order to use @Decorators
 
 import express from "express"
@@ -8,26 +7,20 @@ import {
   UniqueConstraintError,
 } from "sequelize"
 
-import config from "./config"
-import expressApp from "@loaders/express"
-import Logger from "@loaders/logger"
+import config from "@config"
+import expressApp from "@server/loaders/express"
+import Logger from "@server/loaders/logger"
 import { sequelize } from "@services/db/sequelize"
 
+const app = express()
 async function startServer() {
-  const app = express()
-
-  /**
-   * A little hack here
-   * Import/Export can only be used in 'top-level code'
-   * Well, at least in node 10 without babel and at the time of writing
-   * So we are using good old require.
-   **/
   expressApp({ app })
 
   async function synchronizeModels() {
     try {
       await sequelize.sync()
       Logger.info("Tables have been created.")
+      console.log("created tables")
     } catch (error) {
       switch (error) {
         case UniqueConstraintError:

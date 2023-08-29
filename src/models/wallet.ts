@@ -10,7 +10,7 @@ import {
 } from "sequelize-typescript"
 import { v4 as uuidv4 } from "uuid"
 
-import { WalletType } from "@helpers/types"
+import { WalletType } from "@domain/shared/primitives"
 
 import Account from "./account"
 

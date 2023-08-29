@@ -1,8 +1,9 @@
 import { Request, Response, Router } from "express"
-import LoggerInstance from "@loaders/logger"
+import LoggerInstance from "../../server/loaders/logger"
+
 const route = Router()
 
-export default (app: Router) => {
+export const auth = (app: Router) => {
   app.use("/auth", route)
   route.post("/signup", async (req: Request, res: Response) => {
     LoggerInstance.info("Calling Sign-Up endpoint with body: %o", req.body)

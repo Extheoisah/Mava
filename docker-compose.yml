@@ -7,24 +7,5 @@ services:
       POSTGRES_PASSWORD: postgres
       POSTGRES_USER: postgres
       POSTGRES_DB: mava
-    volumes:
-      - ./init.sql:/docker-entrypoint-initdb.d/init.sql
-      - ./pgdata:/var/lib/postgresql/data
     ports:
       - 5432:5432
-  app:
-    build:
-      context: .
-      dockerfile: Dockerfile
-    environment:
-      DB_USERNAME: postgres
-      DB_PASSWORD: postgres
-      DB_NAME: mava
-      DB_HOST: mava-pg
-    command: ["npm", "run", "dev"]
-    volumes:
-      - .:/app
-    depends_on:
-      - mava-pg
-    ports:
-      - 8000:8000
