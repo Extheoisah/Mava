@@ -1,5 +1,6 @@
 start:
 	docker-compose up
+	npm run dev
 
 start-deps:
 	docker-compose up -d
@@ -13,26 +14,26 @@ stop:
 	docker-compose down
 
 migrate:
-	docker-compose exec app npx sequelize-cli db:migrate
+	npx sequelize-cli db:migrate
 
 stop-deps-local:
 	docker stop mava-pg
 	docker rm mava-pg
 
 undo-migration:
-	docker-compose exec app npx sequelize-cli db:migrate:undo
+	npx sequelize-cli db:migrate:undo
 
 undo-all-migrations:
-	docker-compose exec app npx sequelize-cli db:migrate:undo:all
+	npx sequelize-cli db:migrate:undo:all
 
 seed:
-	docker-compose exec app npx sequelize-cli db:seed:all
+	npx sequelize-cli db:seed:all
 
 undo-seed:
-	docker-compose exec app npx sequelize-cli db:seed:undo
+	npx sequelize-cli db:seed:undo
 
 undo-all-seed:
-	docker-compose exec app npx sequelize-cli db:seed:undo:all
+	npx sequelize-cli db:seed:undo:all
 
 check-code:
 	npm run tsc-check && npm run eslint-check && npm run prettier-check
