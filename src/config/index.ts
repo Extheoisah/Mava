@@ -1,28 +1,30 @@
-import dotenv from "dotenv";
-import { resolve } from "path";
+import dotenv from "dotenv"
+import { resolve } from "path"
+import { MAVA_API_PORT } from "./process"
 
 interface Config {
-  port: number;
+  port: number
   api: {
-    prefix: string;
-  };
+    prefix: string
+  }
   logs: {
-    level: string;
-  };
-  secret: string;
+    level: string
+  }
+  secret: string
 }
+const isDevelopment = process.env.NODE_ENV === "development"
 
-process.env.NODE_ENV = process.env.NODE_ENV || "development";
-
-const envFound = dotenv.config({
-  path: resolve(__dirname, "../../.env"),
-});
-if (envFound.error) {
-  throw new Error("⚠️  Couldn't find .env file  ⚠️");
+if (isDevelopment) {
+  const envFound = dotenv.config({
+    path: resolve(__dirname, "../../.env"),
+  })
+  if (envFound.error) {
+    throw new Error("⚠️  Couldn't find .env file in development mode ⚠️")
+  }
 }
 
 const config: Config = {
-  port: parseInt(process.env.PORT || "8000", 10),
+  port: MAVA_API_PORT,
   api: {
     prefix: "/api",
   },
@@ -30,6 +32,6 @@ const config: Config = {
   logs: {
     level: process.env.LOG_LEVEL || "info",
   },
-};
+}
 
-export default config;
+export default config

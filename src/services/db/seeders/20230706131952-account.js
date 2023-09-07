@@ -1,10 +1,12 @@
-"use strict";
-const bcrypt = require("bcryptjs");
-const { v4 } = require("uuid");
+/* eslint-disable @typescript-eslint/no-var-requires */
+/* eslint-disable no-undef */
+"use strict"
+const bcrypt = require("bcryptjs")
+const { v4 } = require("uuid")
 
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
-  async up(queryInterface, Sequelize) {
+  async up(queryInterface) {
     /**
      * Add seed commands here.
      *
@@ -40,25 +42,23 @@ module.exports = {
           updatedAt: "2023-07-09",
         },
       ],
-      {}
-    );
-    const accounts = await queryInterface.sequelize.query(
-      `SELECT id, type from ACCOUNT;`
-    );
+      {},
+    )
+    const accounts = await queryInterface.sequelize.query(`SELECT id, type from ACCOUNT;`)
 
     function selectId(records, key, value) {
-      let id = "";
+      let id = ""
       for (let i = 0; i < records[0].length; i++) {
-        const record = records[0][i];
+        const record = records[0][i]
         if (record[key] === value) {
-          id = record.id;
-          break;
+          id = record.id
+          break
         }
       }
-      return id;
+      return id
     }
 
-    const accountId = selectId(accounts, "type", "CUSTOMER");
+    const accountId = selectId(accounts, "type", "CUSTOMER")
 
     //Creating Wallet
     await queryInterface.bulkInsert(
@@ -81,8 +81,8 @@ module.exports = {
           updatedAt: "2023-07-09",
         },
       ],
-      {}
-    );
+      {},
+    )
 
     //Creating Checkpoint
     await queryInterface.bulkInsert(
@@ -113,8 +113,8 @@ module.exports = {
           updatedAt: "2023-07-09",
         },
       ],
-      {}
-    );
+      {},
+    )
 
     //Creating kycinfo
     await queryInterface.bulkInsert(
@@ -134,16 +134,12 @@ module.exports = {
           updatedAt: "2023-07-09",
         },
       ],
-      {}
-    );
+      {},
+    )
 
-    const wallets = await queryInterface.sequelize.query(
-      `SELECT id, type from WALLET;`
-    );
+    const wallets = await queryInterface.sequelize.query(`SELECT id, type from WALLET;`)
 
-    const checkpoints = await queryInterface.sequelize.query(
-      `SELECT id from CHECKPOINT;`
-    );
+    const checkpoints = await queryInterface.sequelize.query(`SELECT id from CHECKPOINT;`)
 
     //Creating kycinfo
     await queryInterface.bulkInsert(
@@ -176,20 +172,12 @@ module.exports = {
           updatedAt: "2023-07-09",
         },
       ],
-      {}
-    );
-
-    // id: string;
-    // type: TransactionMetaType;
-    // hash?: string;
-    // narration: string;
-    // invoice?: string;
-    // address?: string;
-    // transactionId: Transaction["id"];
+      {},
+    )
 
     const transactions = await queryInterface.sequelize.query(
-      `SELECT id, currency from TRANSACTION;`
-    );
+      `SELECT id, currency from TRANSACTION;`,
+    )
 
     //Creating Transaction Meta data
     await queryInterface.bulkInsert(
@@ -215,22 +203,22 @@ module.exports = {
           updatedAt: "2023-07-09",
         },
       ],
-      {}
-    );
+      {},
+    )
   },
 
-  async down(queryInterface, Sequelize) {
+  async down(queryInterface) {
     /**
      * Add commands to revert seed here.
      *
      * Example:
      * await queryInterface.bulkDelete('People', null, {});
      */
-    await queryInterface.bulkDelete("transactionMetadata", null, {});
-    await queryInterface.bulkDelete("transaction", null, {});
-    await queryInterface.bulkDelete("wallet", null, {});
-    await queryInterface.bulkDelete("kycInfo", null, {});
-    await queryInterface.bulkDelete("checkpoint", null, {});
-    await queryInterface.bulkDelete("account", null, {});
+    await queryInterface.bulkDelete("transactionMetadata", null, {})
+    await queryInterface.bulkDelete("transaction", null, {})
+    await queryInterface.bulkDelete("wallet", null, {})
+    await queryInterface.bulkDelete("kycInfo", null, {})
+    await queryInterface.bulkDelete("checkpoint", null, {})
+    await queryInterface.bulkDelete("account", null, {})
   },
-};
+}

@@ -1,4 +1,5 @@
-"use strict";
+/* eslint-disable no-undef */
+"use strict"
 
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
@@ -41,11 +42,7 @@ module.exports = {
         allowNull: false,
       },
       target: {
-        type: Sequelize.ENUM(
-          "INTERNAL_WALLET",
-          "EXTERNAL_WALET",
-          "EXTERNAL_BANK"
-        ),
+        type: Sequelize.ENUM("INTERNAL_WALLET", "EXTERNAL_WALLET", "EXTERNAL_BANK"),
         allowNull: false,
       },
       status: {
@@ -60,10 +57,10 @@ module.exports = {
         allowNull: false,
         type: Sequelize.DATE,
       },
-    });
+    })
   },
 
-  down: async (queryInterface, Sequelize) => {
-    return queryInterface.dropTable("transaction");
+  down: async (queryInterface) => {
+    return queryInterface.dropTable("transaction")
   },
-};
+}

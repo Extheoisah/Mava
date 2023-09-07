@@ -7,18 +7,18 @@ import {
   Model,
   PrimaryKey,
   Table,
-} from "sequelize-typescript";
-import { v4 as uuidv4 } from "uuid";
+} from "sequelize-typescript"
+import { v4 as uuidv4 } from "uuid"
 
-import { WalletType } from "@helpers/types";
+import { WalletType } from "@domain/shared/primitives"
 
-import Account from "./account";
+import Account from "./account"
 
 interface WalletAttributes {
-  id: string;
-  type: WalletType;
-  balance: number;
-  accountId: Account["id"];
+  id: string
+  type: WalletType
+  balance: number
+  accountId: Account["id"]
 }
 
 @Table({ tableName: "wallet", timestamps: true })
@@ -30,25 +30,25 @@ export class Wallet extends Model<WalletAttributes> {
     primaryKey: true,
     unique: true,
   })
-  id!: string;
+  id!: string
 
   @Column(DataType.ENUM({ values: Object.values(WalletType) }))
-  type!: WalletType;
+  type!: WalletType
 
   @Column(DataType.FLOAT)
-  balance!: number;
+  balance!: number
 
   @ForeignKey(() => Account)
   @Column(DataType.UUID)
-  accountId!: Account["id"];
+  accountId!: Account["id"]
 
   @BelongsTo(() => Account)
-  account!: Account;
+  account!: Account
 
   @BeforeCreate
   static addUUID(instance: Wallet) {
-    instance.id = uuidv4();
+    instance.id = uuidv4()
   }
 }
 
-export default Wallet;
+export default Wallet
