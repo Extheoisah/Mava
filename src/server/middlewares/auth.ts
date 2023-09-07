@@ -46,7 +46,7 @@ export async function customerAuth(req: Request, res: Response, next: NextFuncti
     next()
   } catch (error) {
     LoggerInstance.error("Error Verifying Customer Auth token: %o", error)
-    return res.status(401).json({ success: false, message: "unathorized" })
+    return res.status(401).json({ success: false, message: "unauthorized" })
   }
 }
 
@@ -70,6 +70,6 @@ export async function adminAuth(req: Request, res: Response, next: NextFunction)
     next()
   } catch (error) {
     LoggerInstance.error("Error Verifying Admin Auth token: %o", error)
-    return res.status(401).json({ success: false, message: "unathorized" })
+    return res.status(401).json({ success: false, message: "unauthorized" })
   }
 }
