@@ -44,7 +44,7 @@ export enum TransactionMetaType {
 }
 
 export interface JwtPayload {
-  sub: string;
-  name: string;
-  admin: boolean;
+  sub: string
+  name: string
+  admin: boolean
 }
