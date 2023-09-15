@@ -1,15 +1,9 @@
 import jwt from "jsonwebtoken"
 import { Request, Response, NextFunction } from "express"
 import config from "@config"
-import { JwtPayload } from "../../domain/shared/primitives"
 import { Account } from "../../models/account"
 import LoggerInstance from "../../server/loaders/logger"
-
-interface VerifyTokenRes {
-  success: boolean
-  msg?: string
-  payload?: JwtPayload
-}
+import { VerifyTokenRes, JwtPayload } from "../../domain/authentication/types"
 
 function verifyToken(req: Request): VerifyTokenRes {
   LoggerInstance.info("Verifying Auth token: %o")
