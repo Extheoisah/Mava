@@ -9,7 +9,7 @@ export function verifyToken(req: Request): VerifyTokenRes {
   try {
     const token = req.headers.authorization?.split(" ")[1]
     if (!token) {
-      return { success: true, msg: "invalid token" }
+      return { success: false, msg: "invalid token" }
     }
     const payload = jwt.verify(token, config.secret) as JwtPayload
     return { success: true, payload }
