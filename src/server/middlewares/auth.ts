@@ -1,24 +1,8 @@
-import jwt from "jsonwebtoken"
 import { Request, Response, NextFunction } from "express"
-import config from "@config"
 import { Account } from "../../models/account"
-import LoggerInstance from "../../server/loaders/logger"
-import { VerifyTokenRes, JwtPayload } from "../../domain/authentication/types"
-
-function verifyToken(req: Request): VerifyTokenRes {
-  LoggerInstance.info("Verifying Auth token: %o")
-  try {
-    const token = req.headers.authorization?.split(" ")[1]
-    if (!token) {
-      return { success: true, msg: "invalid token" }
-    }
-    const payload = jwt.verify(token, config.secret) as JwtPayload
-    return { success: true, payload }
-  } catch (error) {
-    LoggerInstance.error("Error Verifying Auth token: %o", error)
-    return { success: false, msg: "invalid token" }
-  }
-}
+import LoggerInstance from "@server/loaders/logger"
+import { VerifyTokenRes } from "@domain/authentication/types"
+import { verifyToken } from "@services/authentication/token"
 
 export async function customerAuth(req: Request, res: Response, next: NextFunction) {
   LoggerInstance.info("Verifying Customer Auth token: %o")
