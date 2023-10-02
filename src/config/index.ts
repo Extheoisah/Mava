@@ -10,6 +10,7 @@ interface Config {
   logs: {
     level: string
   }
+  secret: string
 }
 const isDevelopment = process.env.NODE_ENV === "development"
 
@@ -27,6 +28,7 @@ const config: Config = {
   api: {
     prefix: "/api",
   },
+  secret: process.env.JWT_SECRET || "",
   logs: {
     level: process.env.LOG_LEVEL || "info",
   },
