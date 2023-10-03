@@ -1,7 +1,6 @@
 import { Request, Response, Router } from "express"
 import LoggerInstance from "../../server/loaders/logger"
-import joi from "joi"
-import { signUp } from "@services/authentication/signup"
+import { signUp } from "../../services/authentication/signUp"
 import { AccountStatus, AccountType } from "@domain/shared/primitives"
 import { CustomSuccess } from "@server/middlewares/success"
 import { signIn } from "@services/authentication/signIn"
