@@ -46,7 +46,7 @@ export async function signIn(cred: LoginUser): Promise<CustomSuccess> {
       admin: user.type === AccountType.ADMIN ? true : false,
     })
 
-    const response: CustomSuccess = new CreateCustomSuccess("login successfull", 200, {
+    const response: CustomSuccess = new CreateCustomSuccess("login successful", 200, {
       token,
     })
     return response

@@ -33,7 +33,7 @@ export const auth = (app: Router) => {
         .status(response.status)
         .json({ message: response.message, data: response.data })
     } catch (error: any) {
-      return res.status(error.status).json({ messsage: error.message })
+      return res.status(error.status).json({ message: error.message })
     }
   })
 
@@ -48,7 +48,7 @@ export const auth = (app: Router) => {
         .status(response.status)
         .json({ message: response.message, data: response.data })
     } catch (error: any) {
-      return res.status(error.status).json({ messsage: error.message })
+      return res.status(error.status).json({ message: error.message })
     }
   })
 }
