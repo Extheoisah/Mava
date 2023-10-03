@@ -15,9 +15,7 @@ export async function AccountRepository(id: string): Promise<Account | CustomErr
   }
 }
 
-export async function AccountRepositoryByEmail(
-  email: string,
-): Promise<Account | CustomError> {
+export async function AccountRepositoryByEmail(email: string): Promise<Account> {
   try {
     const user = (await Account.findOne({
       where: { email },
@@ -26,6 +24,6 @@ export async function AccountRepositoryByEmail(
   } catch (error) {
     LoggerInstance.error(`finding user with email (${email}) caused an error`, error)
     const err = new InternalServerError()
-    return err
+    throw err
   }
 }

@@ -1,10 +1,6 @@
 import joi from "joi"
 import { CreateUser } from "@domain/authentication/types"
-import {
-  CreateCustomError,
-  CustomError,
-  InternalServerError,
-} from "@server/middlewares/error"
+import { CreateCustomError, InternalServerError } from "@server/middlewares/error"
 import { sequelize } from "@services/db/sequelize"
 import { AccountRepositoryByEmail } from "@services/sequelize/Account"
 import { Account, Wallet } from "models"

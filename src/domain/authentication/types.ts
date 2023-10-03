@@ -20,3 +20,8 @@ export interface CreateUser {
   name: string
   isAdmin: boolean
 }
+
+export interface LoginUser {
+  email: string
+  password: string
+}
