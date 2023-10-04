@@ -18,3 +18,9 @@ export function verifyToken(req: Request): VerifyTokenRes {
     return { success: false, msg: "invalid token" }
   }
 }
+
+export function createJwtToken(payload: JwtPayload) {
+  const SECRET = config.secret
+  const token = jwt.sign(payload, SECRET)
+  return token
+}

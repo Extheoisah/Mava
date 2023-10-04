@@ -28,4 +28,4 @@ class InternalServerError extends CreateCustomError {
   }
 }
 
-export { NotFoundError, InternalServerError }
+export { NotFoundError, InternalServerError, CreateCustomError }
