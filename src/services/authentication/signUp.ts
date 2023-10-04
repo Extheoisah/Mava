@@ -3,7 +3,7 @@ import { CreateUser } from "@domain/authentication/types"
 import { CreateCustomError, InternalServerError } from "@server/middlewares/error"
 import { sequelize } from "@services/db/sequelize"
 import { AccountRepositoryByEmail } from "@services/sequelize/Account"
-import { Account, Wallet } from "models"
+import { Account, Wallet } from "../../models"
 import { WalletType } from "@domain/shared/primitives"
 import LoggerInstance from "@server/loaders/logger"
 import bcrypt from "bcrypt"
@@ -80,12 +80,14 @@ export async function signUp(user: CreateUser): Promise<CustomSuccess> {
       { token },
     )
     return response
-  } catch (error: any) {
+  } catch (error: unknown) {
     //Roll back
     await t.rollback()
     //Throw error
     LoggerInstance.error("Error creating a new user %o:", error)
-    if (error.message && error.status) throw error
+    if (error instanceof CreateCustomError) {
+      throw error
+    }
     const err = new InternalServerError()
     throw err
   }

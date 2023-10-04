@@ -50,10 +50,12 @@ export async function signIn(cred: LoginUser): Promise<CustomSuccess> {
       token,
     })
     return response
-  } catch (error: any) {
+  } catch (error) {
     //Throw error
     LoggerInstance.error("Error creating a new user %o:", error)
-    if (error.message && error.status) throw error
+    if (error instanceof CreateCustomError) {
+      throw error
+    }
     const err = new InternalServerError()
     throw err
   }

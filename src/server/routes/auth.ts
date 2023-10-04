@@ -4,6 +4,7 @@ import { signUp } from "../../services/authentication/signUp"
 import { AccountStatus, AccountType } from "@domain/shared/primitives"
 import { CustomSuccess } from "@server/middlewares/success"
 import { signIn } from "@services/authentication/signIn"
+import { CreateCustomError } from "@server/middlewares/error"
 
 const route = Router()
 
@@ -31,8 +32,13 @@ export const auth = (app: Router) => {
       return res
         .status(response.status)
         .json({ message: response.message, data: response.data })
-    } catch (error: any) {
-      return res.status(error.status).json({ message: error.message })
+    } catch (error) {
+      if (error instanceof CreateCustomError) {
+        return res.status(error.status).json({ message: error.message })
+      }
+      return res
+        .status(500)
+        .json({ message: "An error occurred, please try again later" })
     }
   })
 
@@ -46,8 +52,13 @@ export const auth = (app: Router) => {
       return res
         .status(response.status)
         .json({ message: response.message, data: response.data })
-    } catch (error: any) {
-      return res.status(error.status).json({ message: error.message })
+    } catch (error) {
+      if (error instanceof CreateCustomError) {
+        return res.status(error.status).json({ message: error.message })
+      }
+      return res
+        .status(500)
+        .json({ message: "An error occurred, please try again later" })
     }
   })
 }

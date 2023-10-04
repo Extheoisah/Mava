@@ -21,6 +21,6 @@ export function verifyToken(req: Request): VerifyTokenRes {
 
 export function createJwtToken(payload: JwtPayload) {
   const SECRET = config.secret
-  let token = jwt.sign(payload, SECRET)
+  const token = jwt.sign(payload, SECRET)
   return token
 }
